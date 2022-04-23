@@ -33,8 +33,8 @@
                                         <td>{{ $list->student_email }}</td>
                                         <td>{{ $list->student_phone }}</td>
                                         <td>
-                                            <img src="{{ asset('storage/student') }}/{{ $list->student_picture }}" alt=""
-                                                width="120" height="120">
+                                            <img src="{{ asset('storage/student') }}/{{ $list->student_picture }}"
+                                                alt="" width="120" height="90">
                                         </td>
                                         <td>
                                             <a href="{{ url('/student/edit', $list->slug) }}"
