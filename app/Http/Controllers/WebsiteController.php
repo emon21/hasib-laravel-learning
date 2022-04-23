@@ -26,12 +26,12 @@ class WebsiteController extends Controller
     }
     public function studentinsert(Request $req)
     {
-        // $req->validate([
-        //     'student_name' => 'required',
-        //     'student_email' => 'required|email',
-        //     'student_phone' => 'required',
-        //     // 'student_picture' => 'required',
-        // ]);
+        $req->validate([
+            'student_name' => 'required',
+            'student_email' => 'required|email',
+            'student_phone' => 'required',
+            'student_picture' => 'required',
+        ]);
         if($req->hasFile('student_picture')){
 
             $img = $req->file('student_picture');
