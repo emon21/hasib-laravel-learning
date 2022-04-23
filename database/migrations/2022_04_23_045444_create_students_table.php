@@ -19,6 +19,7 @@ class CreateStudentsTable extends Migration
             $table->string('slug');
             $table->string('student_email');
             $table->string('student_phone');
+            $table->string('student_picture');
             $table->timestamps();
         });
     }

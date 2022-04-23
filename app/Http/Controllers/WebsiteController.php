@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use Illuminate\Support\Str;
+use File;
 class WebsiteController extends Controller
 {
     //
@@ -25,19 +26,45 @@ class WebsiteController extends Controller
     }
     public function studentinsert(Request $req)
     {
-        $req->validate([
-            'student_name' => 'required',
-            'student_email' => 'required|email',
-            'student_phone' => 'required',
-        ]);
+        // $req->validate([
+        //     'student_name' => 'required',
+        //     'student_email' => 'required|email',
+        //     'student_phone' => 'required',
+        //     // 'student_picture' => 'required',
+        // ]);
+        if($req->hasFile('student_picture')){
 
-        Student::create([
-            'student_name' => $req->student_name,
-           // 'slug' => Str::slug($req->student_name),
-            'slug' => Str::slug($req->student_name),
-            'student_email' => $req->student_email,
-            'student_phone' => $req->student_phone,
-        ]);
+            $img = $req->file('student_picture');
+            $extension = $img->getClientOriginalExtension();
+            $filename = time().'.'.$extension;
+            $img->move('storage/student',$filename);
+            Student::create([
+                'student_name' => $req->student_name,
+               // 'slug' => Str::slug($req->student_name),
+                'slug' => Str::slug($req->student_name),
+                'student_email' => $req->student_email,
+                'student_phone' => $req->student_phone,
+                'student_picture' => $filename,
+            ]);
+        }
+
+        // if ($request->file('login_page_image')) {
+        //     deleteImage($cms->login_page_image);
+        //     $url = uploadImage($request->login_page_image, 'login');
+        //     $cms->login_page_image = $url;
+        //     $cms->login_page_title = $request->login_page_title;
+        // } else {
+
+        //     $cms->login_page_title = $request->login_page_title;
+        // }
+
+        // Student::create([
+        //     'student_name' => $req->student_name,
+        //    // 'slug' => Str::slug($req->student_name),
+        //     'slug' => Str::slug($req->student_name),
+        //     'student_email' => $req->student_email,
+        //     'student_phone' => $req->student_phone,
+        // ]);
         return back()->with('success','Data Insert');
 
     }

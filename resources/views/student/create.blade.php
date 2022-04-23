@@ -42,7 +42,7 @@
 @endif  --}}
             <div class="card">
                     <div class="card-body">
-                        <form action="{{ url('student/insert') }}" method="post">
+                        <form action="{{ url('student/insert') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group mt-2">
                               <label>Student Name:</label>
@@ -64,6 +64,11 @@
                                 @error('student_phone')
                                     <div class="mt-2 p-2 alert-danger">{{ $message }}</div>
                                 @enderror
+                              </div>
+                              <div class="form-group  mt-2">
+                                <label>Student Picture:</label>
+                                <input type="file" class="form-control mt-1" name="student_picture">
+
                               </div>
                             <button type="submit" class="btn btn-success mt-2">Add Student</button>
                           </form>
