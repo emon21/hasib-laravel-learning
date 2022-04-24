@@ -18,4 +18,9 @@ class Student extends Model
     // {
     //     return 'id/slug';
     // }
+
+    public function studentfiles()
+    {
+        return $this->hasMany('App\Models\StudentFile');
+    }
 }

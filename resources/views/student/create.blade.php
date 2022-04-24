@@ -67,16 +67,14 @@
                               </div>
                               <div class="form-group  mt-2">
                                 <label>Student Picture:</label>
-                                <input type="file" class="form-control mt-1 @error('student_picture') is-invalid @enderror" name="student_picture">
+                                <input type="file" class="form-control mt-1 @error('student_picture') is-invalid @enderror" name="student_picture[]" multiple>
 
                               </div>
                             <button type="submit" class="btn btn-success mt-2">Add Student</button>
                           </form>
                     </div>
-
                 </div>
             </div>
-
     </div>
 </div>
 @endsection

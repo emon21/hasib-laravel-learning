@@ -37,6 +37,8 @@
                                                 alt="" width="120" height="90">
                                         </td>
                                         <td>
+                                            <a href="{{ url('/student/view', $list->slug) }}"
+                                                class="btn btn-warning">View</a>
                                             <a href="{{ url('/student/edit', $list->slug) }}"
                                                 class="btn btn-info">Edit</a>
                                             <a href="{{ url('student/delete', $list->id) }}" class="btn btn-danger"

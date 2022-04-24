@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\StudentFile;
 use Illuminate\Support\Str;
 use File;
 class WebsiteController extends Controller
@@ -11,6 +12,7 @@ class WebsiteController extends Controller
     //
     public function index()
     {
+
        return view('home_master');
     }
 
@@ -26,27 +28,63 @@ class WebsiteController extends Controller
     }
     public function studentinsert(Request $req)
     {
-        $req->validate([
-            'student_name' => 'required',
-            'student_email' => 'required|email',
-            'student_phone' => 'required',
-            'student_picture' => 'required',
-        ]);
-        if($req->hasFile('student_picture')){
+        // $req->validate([
+        //     'student_name' => 'required',
+        //     'student_email' => 'required|email',
+        //     'student_phone' => 'required',
+        //     'student_picture' => 'required',
+        // ]);
 
-            $img = $req->file('student_picture');
-            $extension = $img->getClientOriginalExtension();
-            $filename = time().'.'.$extension;
-            $img->move('storage/student',$filename);
-            Student::create([
-                'student_name' => $req->student_name,
-               // 'slug' => Str::slug($req->student_name),
-                'slug' => Str::slug($req->student_name),
-                'student_email' => $req->student_email,
-                'student_phone' => $req->student_phone,
-                'student_picture' => $filename,
-            ]);
-        }
+
+
+        // if($req->hasFile('student_picture')){
+
+        //     $img = $req->file('student_picture');
+        //     $extension = $img->getClientOriginalExtension();
+        //     $filename = time().'.'.$extension;
+        //     $img->move('storage/student',$filename);
+        //     $student = Student::create([
+        //         'student_name' => $req->student_name,
+        //        // 'slug' => Str::slug($req->student_name),
+        //         'slug' => Str::slug($req->student_name),
+        //         'student_email' => $req->student_email,
+        //         'student_phone' => $req->student_phone,
+        //         // 'student_picture' => $filename,
+        //     ]);
+
+        // }
+
+        $student = Student::create([
+            'student_name' => $req->student_name,
+           // 'slug' => Str::slug($req->student_name),
+            'slug' => Str::slug($req->student_name),
+            'student_email' => $req->student_email,
+            'student_phone' => $req->student_phone,
+            // 'student_picture' => $filename,
+        ]);
+
+        //multiple image upload into database
+
+        // $img = $req->file('student_picture');
+        //     $extension = $img->getClientOriginalExtension();
+        //     $filename = time().'.'.$extension;
+        //     $img->move('storage/student',$filename);
+        $files = $req->file('student_picture');
+          //  $count = 1;
+            foreach($files as $file){
+
+                // $image_name = md5(rand(1000,10000));
+                // $ext = strtolower($file->getClientOriginalExtension());
+                // $filename =$image_name.'.'.$ext;
+                $extension = $file->getClientOriginalExtension();
+                $filename = time().'.'.$extension;
+                $file->move('storage/student',$filename);
+               // $count++;
+                StudentFile::create([
+                    'student_id' => $student->id,
+                    'student_img' => $filename,
+                ]);
+               }
 
         // if ($request->file('login_page_image')) {
         //     deleteImage($cms->login_page_image);
@@ -67,6 +105,22 @@ class WebsiteController extends Controller
         // ]);
         return back()->with('success','Data Insert');
 
+    }
+
+    public function studentview(Student $student)
+    {
+     // return $student->id;
+      // $studentlist = StudentFile::all();
+
+    //   $comtes = Student::find(24)->studentfiles;
+    //    // return $comtes;
+    //     foreach($comtes as $value){
+    //        echo $value->student_img;
+    //     }
+      $studentlist = Student::find($student->id)->studentfiles;
+    //   $studentlist = Student::with('studentfiles')->get();
+
+       return view('student/view',compact('studentlist'));
     }
 
     public function studentedit(Student $student)

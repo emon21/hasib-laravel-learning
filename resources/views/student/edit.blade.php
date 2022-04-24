@@ -42,7 +42,7 @@
 @endif  --}}
             <div class="card">
                     <div class="card-body">
-                        <form action="{{ url('student/update') }}" method="post">
+                        <form action="{{ url('student/update') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <input type="text" name="student" value="{{ $student->id }}">
                             <div class="form-group mt-2">
@@ -63,6 +63,18 @@
                                 @error('student_phone')
                                     <div class="mt-2 p-2 alert-danger">{{ $message }}</div>
                                 @enderror
+                              </div>
+
+                              <div class="form-group  mt-2">
+                                <label>Old Picture:</label>
+                                <img src="{{ asset('storage/student') }}/{{ $student->student_picture }}"
+                                                alt="" width="120" height="90">
+                              </div>
+
+                              <div class="form-group  mt-2">
+                                <label>Student Picture:</label>
+                                <input type="file" class="form-control mt-1 @error('student_picture') is-invalid @enderror" name="student_picture">
+
                               </div>
                             <button type="submit" class="btn btn-success mt-2">Update Student</button>
                           </form>
