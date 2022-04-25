@@ -14,9 +14,14 @@
     </div>
     @endforeach  --}}
     @foreach ($studentlist as $list)
+    {{--  Student List :{{ $list->studentfiles }}  --}}
+        @foreach ($list->studentfiles as $value)
+
+       {{--  Student Value :  {{ $value->student_img }}  --}}
+
     <div class="col-sm-4 mb-4">
         <div class="card shadow-sm ">
-            <img src="{{ asset('storage/student') }}/{{ $list->student_img }}" alt="Los Angeles" width="" height="350">
+            <img src="{{ asset('storage/student') }}/{{ $value->student_img }}" alt="Los Angeles" width="" height="350">
           <div class="card-body">
             <p class="card-text">{{ $list->student_name }}</p>
             <div class="d-flex justify-content-between align-items-center">
@@ -29,6 +34,7 @@
           </div>
         </div>
       </div>
+      @endforeach
 
       @endforeach
 </div>

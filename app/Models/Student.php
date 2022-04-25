@@ -21,6 +21,7 @@ class Student extends Model
 
     public function studentfiles()
     {
-        return $this->hasMany('App\Models\StudentFile');
+        // return $this->hasMany(StudentFile::class);
+        return $this->hasMany(StudentFile::class,'student_id', 'id');
     }
 }

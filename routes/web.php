@@ -23,6 +23,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/',[WebsiteController::class,'index']);
+Route::get('/group',[WebsiteController::class,'group']);
 
 //Student Crud
 Route::get('/student',[WebsiteController::class,'studentlist']);

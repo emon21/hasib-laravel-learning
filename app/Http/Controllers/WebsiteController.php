@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\StudentFile;
 use Illuminate\Support\Str;
+use App\Models\Group;
+use App\Models\StudentGroup;
+use App\Models\User;
+use App\Models\Phone;
 use File;
 class WebsiteController extends Controller
 {
@@ -109,7 +113,7 @@ class WebsiteController extends Controller
 
     public function studentview(Student $student)
     {
-     // return $student->id;
+      //return $student;
       // $studentlist = StudentFile::all();
 
     //   $comtes = Student::find(24)->studentfiles;
@@ -117,7 +121,14 @@ class WebsiteController extends Controller
     //     foreach($comtes as $value){
     //        echo $value->student_img;
     //     }
-      $studentlist = Student::find($student->id)->studentfiles;
+ // return $studentlist = Student::with('studentfiles')->get();
+  //return $studentlist = StudentFile::find($student)->get();
+ return $post = Student::studentfiles()->where('student_id',$student)->first();
+
+//  $comment = Post::find(1)->comments()
+//                     ->where('title', 'foo')
+//                     ->first();
+    //  return $studentlist = Student::with('studentfiles')->where(StudentFile::find('student_id',$student)->get());
     //   $studentlist = Student::with('studentfiles')->get();
 
        return view('student/view',compact('studentlist'));
@@ -163,6 +174,23 @@ class WebsiteController extends Controller
         $student->save();
         return redirect('student')->with('success','Data Update');
 
+    }
+
+    public function group()
+    {
+        //Group Relation
+       // $group = Group::find(2)->studentGroup;
+       // return $group;
+        //Student Group Relation
+      // $student = StudentGroup::find(2)->group;
+       // return $student;
+       // $group = Group::all();
+       $group = Group::all();
+        // $studentgroup = StudentGroup::with('group')->get();
+        $studentgroup = StudentGroup::all();
+       // $user = User::all();
+       // return $users;
+        return view('home_master',compact('group','studentgroup'));
     }
 
     //Student Delete

@@ -17,5 +17,8 @@ class StudentFile extends Model
         // return $this->hasMany(''::class,'');
         // return $this->hasMany(Student::class);
        // return $this->belongsTo(Student::class);
+       return $this->belongsTo(Student::class);
+    //    return $this->hasMany(Comment::class, 'foreign_key', 'local_key');
+
     }
 }
