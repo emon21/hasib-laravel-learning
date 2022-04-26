@@ -11,9 +11,16 @@ use App\Models\StudentGroup;
 use App\Models\User;
 use App\Models\Phone;
 use File;
+use Storage;
+use Illuminate\Support\Facades\DB;
 class WebsiteController extends Controller
 {
     //
+
+    public function admin()
+    {
+        return view('admin.master');
+    }
     public function index()
     {
 
@@ -21,10 +28,30 @@ class WebsiteController extends Controller
     }
 
     //Student Crud
-    public function studentlist()
+    public function studentlist(Student $student)
     {
-        $student = Student::all();
-        return view('student/index',compact('student'));
+
+       //return $student->id;
+       // $student = Student::all();
+    //    return $student->count();
+//    return $categ = DB::table('students')
+//  ->select('student_id', 'student_files.id', DB::raw('count(students.id) as total_product'))
+//  ->join('student_files', 'studentfiles.student_id', '=', 'students.id')->groupBy('studentfiles.student_id')->get();
+
+  $studentlist = Student::withCount('studentfiles')->get();
+
+//  $categ = DB::table('posts')
+//  ->select('categories.id', "categories.name", DB::raw("count(posts.id) as total_product"))
+//  ->join('categories, "posts.category_id', '=', 'categories.id')
+//  ->groupBy('posts.category_id')
+//  ->get();
+
+
+     // return $studentlist = Student::with('studentfiles')->get();
+ // $studentlist = StudentFile::with('student')->get();
+  //return $studentlist->count();
+
+        return view('student/index',compact('studentlist'));
     }
     public function studentcreate()
     {
@@ -75,6 +102,9 @@ class WebsiteController extends Controller
         //     $img->move('storage/student',$filename);
         $files = $req->file('student_picture');
           //  $count = 1;
+          $newroad = public_path(). '/storage/student/' .$req->student_name;
+          File::makeDirectory($newroad,0775,true);
+
             foreach($files as $file){
 
                 // $image_name = md5(rand(1000,10000));
@@ -82,14 +112,16 @@ class WebsiteController extends Controller
                 // $filename =$image_name.'.'.$ext;
                 $extension = $file->getClientOriginalExtension();
                 $filename = time().'.'.$extension;
-                $file->move('storage/student',$filename);
+                $file->move($newroad,$filename);
+                // Storage::makeDirectory($newroad,0775,true);
+
+                // $url = uploadImage($req->student_picture, 'student');
                // $count++;
                 StudentFile::create([
                     'student_id' => $student->id,
                     'student_img' => $filename,
                 ]);
                }
-
         // if ($request->file('login_page_image')) {
         //     deleteImage($cms->login_page_image);
         //     $url = uploadImage($request->login_page_image, 'login');
@@ -113,25 +145,29 @@ class WebsiteController extends Controller
 
     public function studentview(Student $student)
     {
-      //return $student;
-      // $studentlist = StudentFile::all();
+     // return $student;
+    $student = Student::find($student->id)->get();
 
     //   $comtes = Student::find(24)->studentfiles;
     //    // return $comtes;
     //     foreach($comtes as $value){
     //        echo $value->student_img;
     //     }
- // return $studentlist = Student::with('studentfiles')->get();
-  //return $studentlist = StudentFile::find($student)->get();
- return $post = Student::studentfiles()->where('student_id',$student)->first();
+  // $studentlist = Student::with('studentfiles')->get();
+ // return $studentlist->count();
+//   return $studentlist = StudentFile::find($student->id)->;
+//  return $post = Student::studentfiles()->where('student_id',$student)->first();
 
 //  $comment = Post::find(1)->comments()
 //                     ->where('title', 'foo')
 //                     ->first();
-    //  return $studentlist = Student::with('studentfiles')->where(StudentFile::find('student_id',$student)->get());
+   // $studentlist = Student::with('studentfiles')->get();
+    //  $student = Student::where('student_id',$student->id)->get();
+    $studentfile = StudentFile::where('student_id',$student)->get();
+
     //   $studentlist = Student::with('studentfiles')->get();
 
-       return view('student/view',compact('studentlist'));
+       return view('student/view',compact('student','studentfile'));
     }
 
     public function studentedit(Student $student)
@@ -185,12 +221,12 @@ class WebsiteController extends Controller
       // $student = StudentGroup::find(2)->group;
        // return $student;
        // $group = Group::all();
-       $group = Group::all();
+      return $group = Group::find(1);
         // $studentgroup = StudentGroup::with('group')->get();
         $studentgroup = StudentGroup::all();
        // $user = User::all();
        // return $users;
-        return view('home_master',compact('group','studentgroup'));
+        return view('group',compact('group','studentgroup'));
     }
 
     //Student Delete

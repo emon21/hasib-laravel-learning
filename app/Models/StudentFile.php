@@ -18,7 +18,13 @@ class StudentFile extends Model
         // return $this->hasMany(Student::class);
        // return $this->belongsTo(Student::class);
        return $this->belongsTo(Student::class);
+
     //    return $this->hasMany(Comment::class, 'foreign_key', 'local_key');
 
     }
+
+    public function posts(){
+        return $this->hasMany(StudentFile::class, 'student_id', 'id');
+        //$category->posts->count()
+       }
 }

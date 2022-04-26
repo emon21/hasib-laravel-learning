@@ -67,7 +67,7 @@
 
                               <div class="form-group  mt-2">
                                 <label>Old Picture:</label>
-                                <img src="{{ asset('storage/student') }}/{{ $student->student_picture }}"
+                                <img  src="{{ asset('backend') }}/{{ asset('storage/student') }}/{{ $student->student_picture }}"
                                                 alt="" width="120" height="90">
                               </div>
 

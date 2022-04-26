@@ -11,31 +11,36 @@
                             style="margin-top:-42px;font-size:16px;">Add Student +</a>
                     </div>
                     <div class="card-body">
-                        <h2>Student List :) {{ $student->count() }}</h2>
+                        {{--  <h2>Student List :) {{ $student->count() }}</h2>  --}}
+
+                        <h2>Student List :- {{ $studentlist->count() }}</h2>
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Sl No</th>
                                     <th>Student Name</th>
-                                    <th>Slug</th>
-                                    <th>Student Email</th>
-                                    <th>Student Phone</th>
-                                    <th>Student Photo</th>
+                                    <th>Student Image</th>
+                                    {{--  <th>Student Email</th>
+                                    <th>Student Phone</th>  --}}
+                                    {{--  <th>Student Photo</th>  --}}
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($student as $list)
+                                @foreach ($studentlist as $list)
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
-                                        <td>{{ $list->student_name }}</td>
-                                        <td>{{ $list->slug }}</td>
+                                        <td>{{ $list->student_name }} ( {{ $list->studentfiles_count }} )</td>
+                                        <td class="text-center text-danger" style="font-size: 20px;font-weight:bold">{{ $list->studentfiles_count }}</td>
+                                        {{--  <td>{{ $list->$studentlist->count() }}</td>  --}}
+                                        {{--  <td>{{ $list->studentlist->count() }}</td>  --}}
+                                        {{--  <td>{{ $list->slug }}</td>
                                         <td>{{ $list->student_email }}</td>
-                                        <td>{{ $list->student_phone }}</td>
-                                        <td>
-                                            <img src="{{ asset('storage/student') }}/{{ $list->student_picture }}"
+                                        <td>{{ $list->student_phone }}</td>  --}}
+                                        {{--  <td>
+                                            <img  src="{{ asset('backend') }}/{{ asset('storage/student') }}/{{ $list->student_picture }}"
                                                 alt="" width="120" height="90">
-                                        </td>
+                                        </td>  --}}
                                         <td>
                                             <a href="{{ url('/student/view', $list->slug) }}"
                                                 class="btn btn-warning">View</a>
