@@ -106,7 +106,7 @@
         <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
       </div>
     </li>
-    <li class="nav-item">
+    {{--  <li class="nav-item">
       <a class="nav-link" data-widget="fullscreen" href="#" role="button">
         <i class="fas fa-expand-arrows-alt"></i>
       </a>
@@ -115,30 +115,30 @@
       <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
         <i class="fas fa-th-large"></i>
       </a>
-    </li>
+    </li>  --}}
     <li class="nav-item dropdown user-menu">
         <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                 <img src="{{ asset('backend') }}/dist/img/user2-160x160.jpg" class="user-image img-circle elevation-2" alt="User Image">
-            <span class="d-none d-md-inline">Hasib</span>
+            <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
         </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right rounded border-0" style="left: inherit; right: 0px;">
             <!-- User image -->
-            <li class="user-header bg-primary rounded-top">
+            <li class="user-header bg-dark rounded-top">
                     <img src="{{ asset('backend') }}/dist/img/user2-160x160.jpg" class="user-image img-circle elevation-2" alt="User Image">
                 <p>
-                  emon
-                    <small>dddd</small>
+                   Hi - {{ Auth::user()->name }}
+                    <small>{{ __('member_since') }} {{ date('y-m-d') }}</small>
                 </p>
             </li>
             <!-- Menu Footer-->
             <li class="user-footer border-bottom d-flex">
-                <a href="" class="btn btn-default"></a>
+                <a href="{{ route('logout') }}" class="btn btn-outline-success">Profile</a>
                 <a href="javascript:void(0)"
-                    onclick="event.preventDefault();document.getElementById('logout-form').submit();"
-                    class="btn btn-default ml-auto">{{ __('sign_out') }}</a>
-                <form id="logout-form" action="" method="POST" class="d-none invisible">
-                    @csrf
-                </form>
+                onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+                class="btn btn-outline-danger ml-auto">{{ __('SignOut') }}</a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none invisible">
+                @csrf
+            </form>
             </li>
         </ul>
     </li>

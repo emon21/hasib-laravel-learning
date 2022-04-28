@@ -9,3 +9,5 @@
   <link rel="stylesheet" href="{{ asset('backend')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('backend/dist/css/adminlte.min.css') }}">
+  <!-- Custom style -->
+  <link rel="stylesheet" href="{{ asset('backend/css/custom.css') }}">

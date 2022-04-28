@@ -8,10 +8,27 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     //
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
+
+
     public function index()
     {
+       return view('admin.index');
+    }
 
-       return view('admin.master');
+    //Admin Home
+    public function home()
+    {
+        return view('admin.startart');
+    }
+
+    public function demo()
+    {
+        return 11111;
     }
 
 }
