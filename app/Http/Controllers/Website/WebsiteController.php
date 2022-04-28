@@ -11,6 +11,6 @@ class WebsiteController extends Controller
     public function index()
     {
        // return 1111111111;
-        return view('welcome');
+        return view('website/index');
     }
 }
