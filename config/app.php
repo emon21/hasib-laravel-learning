@@ -165,8 +165,11 @@ return [
         /*
          * Package Service Providers...
          */
-        //Custom Laravel Debugbar Package
+
+        //Custom Laravel Package
         Barryvdh\Debugbar\ServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

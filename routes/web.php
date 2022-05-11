@@ -34,6 +34,7 @@ Route::get('/student',[WebsiteController::class,'studentlist'])->name('student')
 Route::get('/student/create',[WebsiteController::class,'studentcreate']);
 Route::post('/student/insert',[WebsiteController::class,'studentinsert']);
 Route::get('/student/view/{student:slug}',[WebsiteController::class,'studentview']);
+Route::get('/student/more/{student:slug}',[WebsiteController::class,'more']);
 Route::get('/student/edit/{student:slug}',[WebsiteController::class,'studentedit']);
 Route::post('/student/update/',[WebsiteController::class,'studentupdate']);
 Route::get('/student/delete/{student}',[WebsiteController::class,'studentdelete']);

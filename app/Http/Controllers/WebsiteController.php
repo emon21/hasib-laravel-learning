@@ -13,6 +13,9 @@ use App\Models\Phone;
 use File;
 use Storage;
 use Illuminate\Support\Facades\DB;
+use Brian2694\Toastr\Facades\Toastr;
+// use Toastr;
+
 class WebsiteController extends Controller
 {
     //
@@ -107,11 +110,11 @@ class WebsiteController extends Controller
 
             foreach($files as $file){
 
-                // $image_name = md5(rand(1000,10000));
+                 $image_name = md5(rand(1000,10000));
                 // $ext = strtolower($file->getClientOriginalExtension());
                 // $filename =$image_name.'.'.$ext;
                 $extension = $file->getClientOriginalExtension();
-                $filename = time().'.'.$extension;
+                $filename = $image_name.'.'.$extension;
                 $file->move($newroad,$filename);
                 // Storage::makeDirectory($newroad,0775,true);
 
@@ -139,21 +142,23 @@ class WebsiteController extends Controller
         //     'student_email' => $req->student_email,
         //     'student_phone' => $req->student_phone,
         // ]);
-        return back()->with('success','Data Insert');
 
+        Toastr::success('Student Create Successfully', 'Success', ["positionClass" => "toast-top-right","closeButton"=> true,"progressBar"=> true,"showDuration"=> "500",]);
+        return back();
     }
 
     public function studentview(Student $student)
     {
      // return $student;
-    $student = Student::find($student->id)->get();
+  //$student = Student::find($student->id)->get();
 
     //   $comtes = Student::find(24)->studentfiles;
     //    // return $comtes;
     //     foreach($comtes as $value){
     //        echo $value->student_img;
     //     }
-  // $studentlist = Student::with('studentfiles')->get();
+   $studentfiles = StudentFile::with('student')->get();
+   $student = Student::withCount('studentfiles')->get();
  // return $studentlist->count();
 //   return $studentlist = StudentFile::find($student->id)->;
 //  return $post = Student::studentfiles()->where('student_id',$student)->first();
@@ -163,11 +168,21 @@ class WebsiteController extends Controller
 //                     ->first();
    // $studentlist = Student::with('studentfiles')->get();
     //  $student = Student::where('student_id',$student->id)->get();
-    $studentfile = StudentFile::where('student_id',$student)->get();
+  //  $studentfile = StudentFile::where('student_id',$student)->get();
 
     //   $studentlist = Student::with('studentfiles')->get();
 
-       return view('student/view',compact('student','studentfile'));
+       return view('student/view',compact('student','studentfiles'));
+    }
+
+    public function more(Student $student)
+    {
+       $student = Student::where('id',$student->id)->get();
+     $studentfiles = StudentFile::with('student')->get();
+
+
+        return view('student/more',compact('student','studentfiles'));
+
     }
 
     public function studentedit(Student $student)
